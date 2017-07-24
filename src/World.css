@@ -1,0 +1,18 @@
+.root {
+	-fx-background-color: #AAAAAA;
+}
+
+.label {
+	-fx-font-size: 20px;
+	-fx-font-weight: bold;
+	-fx-text-fill: #333333;
+}
+
+#borad {
+	-fx-font-size: 20px;
+	-fx-alignment: center;
+	-fx-text-fill: #333333;
+	-fx-background-color: #555555;
+	-fx-pref-width: 800.0;
+	-fx-pref-height: 20.0;
+}
