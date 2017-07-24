@@ -50,9 +50,9 @@ public class Bar implements Rect{
 		int y2 = getY() + getHeight();
 		double bx=0;
 		double by=0;
-		for(int i=0; i<360; i++){
-				bx = ball.getRad()*Math.cos(i) + ball.getX();
-				by = ball.getRad()*Math.sin(i) + ball.getY();
+		for(int i=0; i<8; i++){
+				bx = ball.getRad()*Math.cos(i*45) + ball.getX();
+				by = ball.getRad()*Math.sin(i*45) + ball.getY();
 				//System.out.println("bx:" + bx + "by" + by);
 				if(x1 < bx && bx < x2 &&
 				   y1 < by && by < y2) {
