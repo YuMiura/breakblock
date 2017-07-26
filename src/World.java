@@ -24,7 +24,7 @@ public class World extends Application {
 	public List<Block> st1BlockList = new ArrayList<Block>();// インスタンス変数の定義
 	public List<Ball> st1BallList = new ArrayList<Ball>();// インスタンス変数の定義
 	public Bar bar = new Bar();
-	int blockNum = 30;
+	int blockNum = 1;
 	int ballNum = 1;
 
 	Color stroke = Color.WHITE;
@@ -50,7 +50,7 @@ public class World extends Application {
 		pane.setCenter(label);
 		pane.setTop(borad);
 
-		Timeline timer = new Timeline(new KeyFrame(Duration.millis(30), new EventHandler<ActionEvent>() {
+		Timeline timer = new Timeline(new KeyFrame(Duration.millis(60), new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				createRect(pane, 0, 30, width, height, Color.GRAY, Color.GRAY);
@@ -69,6 +69,8 @@ public class World extends Application {
 						break;
 					case 3:
 						ba.setDy(Math.abs(ba.getDy()) * -1);
+						borad.setText("ゲームオーバー");
+						ba.setFlag(false);
 						break;
 					case 4:
 						ba.setDx(Math.abs(ba.getDx()));
@@ -77,18 +79,65 @@ public class World extends Application {
 					}
 
 					for (Block bl : st1BlockList) {// blockとの衝突判定
-						if (bl.isFlag() && bl.isTouch(ba)) {
-							bl.setFlag(false);
-							ba.setDx(ba.getDx() * -1);
-							ba.setDy(ba.getDy() * -1);
+						if (bl.isFlag()) {
+							if (bl.getX() < ba.getX() - ba.getRad() && ba.getX() + ba.getRad() < bl.getX2()) {
+								if (bl.getY() < ba.getY() + ba.getRad()
+										&& ba.getY() + ba.getRad() < bl.getY() + ba.getRad()) {
+									// 上側に衝突した
+									bl.setFlag(false);
+									ba.setDy(Math.abs(ba.getDy()) * -1);
+								} else if (bl.getY2() - ba.getRad() / 2 < ba.getY() - ba.getRad()
+										&& ba.getY() - ba.getRad() < bl.getY2()) {
+									// 下側に衝突した
+									bl.setFlag(false);
+									ba.setDy(Math.abs(ba.getDy()));
+								}
+
+							}
+							if (bl.getY() < ba.getY() - ba.getRad() && ba.getY() + ba.getRad() < bl.getY2()) {
+								if (bl.getX() < ba.getX() + ba.getRad()
+										&& ba.getX() - ba.getRad() < bl.getX() + ba.getRad()) {
+									// 左側に衝突した
+									bl.setFlag(false);
+									ba.setDx(Math.abs(ba.getDx()) * -1);
+
+								} else if (bl.getX2() - ba.getRad() < ba.getX() + ba.getRad()
+										&& ba.getX() - ba.getRad() < bl.getX2()) {
+									// 右側に衝突した
+									bl.setFlag(false);
+									ba.setDx(Math.abs(ba.getDx()));
+
+								}
+
+							}
+
 						}
-					}
 
-					if (bar.isTouch(ba)) {
-						ba.setDx(ba.getDx() * -1);
-						ba.setDy(ba.getDy() * -1);
-					}
+						// barとの衝突判定
+						if (bar.getX() < ba.getX() - ba.getRad() && ba.getX() + ba.getRad() < bar.getX2()) {
+							if (bar.getY() < ba.getY() + ba.getRad()
+									&& ba.getY() + ba.getRad() < bar.getY() + ba.getRad()) {
+								// 上側に衝突した
+								ba.setDy(Math.abs(ba.getDy()) * -1);
+							}
 
+						}
+
+					}
+				}
+
+				// ブロックが存在するか
+				for (Block bl : st1BlockList) {
+					if (bl.isFlag()) {
+						break;
+					}else {
+						borad.setText("ゲームクリア");
+						for (Ball ba : st1BallList) {
+							ba.setFlag(false);
+						}
+
+
+					}
 				}
 
 				// ball位置更新
@@ -139,7 +188,7 @@ public class World extends Application {
 		scene.getStylesheets().add(getClass().getResource("World.css").toExternalForm());
 		stage.setTitle("ブロック崩し");
 		stage.setScene(scene);
-		borad.setText("ballHP:");
+		borad.setText("ブロック崩し");
 		stage.show();
 	}
 

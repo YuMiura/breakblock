@@ -61,4 +61,13 @@ public class Bar implements Rect{
 		}
 		return false;
 	}
+
+	public int getX2() {
+		return getX() + getWidth();
+	}
+
+	public int getY2() {
+		return getY() + getHeight();
+	}
+
 }
