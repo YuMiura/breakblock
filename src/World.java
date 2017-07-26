@@ -24,7 +24,7 @@ public class World extends Application {
 	public List<Block> st1BlockList = new ArrayList<Block>();// インスタンス変数の定義
 	public List<Ball> st1BallList = new ArrayList<Ball>();// インスタンス変数の定義
 	public Bar bar = new Bar();
-	int blockNum = 1;
+	int blockNum = 30;
 	int ballNum = 1;
 
 	Color stroke = Color.WHITE;
