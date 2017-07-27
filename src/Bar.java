@@ -13,6 +13,7 @@ public class Bar implements Rect{
 	}
 
 	public void setX(int x){
+		
 		this.x = x;
 	}
 	public int getX(){

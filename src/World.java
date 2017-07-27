@@ -130,12 +130,11 @@ public class World extends Application {
 				for (Block bl : st1BlockList) {
 					if (bl.isFlag()) {
 						break;
-					}else {
+					} else {
 						borad.setText("ゲームクリア");
 						for (Ball ba : st1BallList) {
 							ba.setFlag(false);
 						}
-
 
 					}
 				}
@@ -181,6 +180,25 @@ public class World extends Application {
 				} else {
 					bar.setX(bar.getX() + 50);
 				}
+			} else if (event.getText().matches("z")) {
+				int tmpx = 0;
+				for (Ball ba : st1BallList) {
+					tmpx += ba.getX();
+				}
+				tmpx /= st1BallList.size();
+				bar.setX(tmpx - bar.getWidth() / 2);
+			} else if (event.getText().matches("x")) {
+
+				int x = st1BallList.get(0).getX();
+				int y = st1BallList.get(0).getY();
+				int dx = st1BallList.get(0).getDx();
+				int dy = st1BallList.get(0).getDy();
+				int tmp = 0;
+				tmp = (2*y-(dy/dx)*x)/(dy/dx);
+				System.out.println(tmp);
+				if (0 < tmp && tmp < width) {
+				}
+
 			}
 		};
 		scene.addEventFilter(KeyEvent.KEY_PRESSED, sceneKeyFilter);
